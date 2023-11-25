@@ -23,6 +23,51 @@ public class AverageOfLevels {
     }
     /**END of Definition for a binary tree node. */
 
+
+    /**
+     *Consider the below program rather considering the last one , as we follow the below type of BFS programming
+     */
+    public List<Double> averageOfLevels2(TreeNode root) {
+        List<Double> resList = new ArrayList<>();
+
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while (!q.isEmpty()) {
+            int size = q.size(); // we take this size coz we need to iterate till the number of nodes at that level, and we need to store this in a variable if we take
+            // i < q.size() in for loop the iteration will go wrong, coz we are removing from q in for loop and also adding in the Queue in the same for loop, but this
+            // addition is for the next level
+
+            double sum = 0.0;// this is to keep the addition of node value in that particular level
+
+            int count = 0; // This is to know count of nodes present at that particular level;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode currNode = q.remove();
+                sum = sum + currNode.val;
+                count++;
+
+                if (currNode.left != null) {
+                    q.add(currNode.left);
+                }
+                if (currNode.right != null) {
+                    q.add(currNode.right);
+                }
+            }
+            resList.add(sum / count);
+        }
+        return resList;
+    }
+
+
+
+
+
+
+    /** ANOTHER WAY:
+     *This is by using null in Queue, it's correct but do not follow this
+     */
+
     public List<Double> averageOfLevels(TreeNode root) {
         // BFS of tree
         List<Double> ls = new ArrayList<>();
@@ -64,4 +109,5 @@ public class AverageOfLevels {
         }
         return ls;
     }
+
 }

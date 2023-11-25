@@ -22,18 +22,19 @@ public class VerticalOrderTraversalBinaryTree {
     }
 // ADDITIONAL CLASS REQUIRED :: IT"S SIMPLE
     public class Pair {
-        int horizontalIndex; // This gives X-axis distance , that is as you move to left subtract -1 from current node, for eg., let root be 0, moving root to left will be 0 - 1 = -1
-        // so -1 will be the horizontalIndex, similarly if there's one more left node, as the current horizontalIndex is = -1 , the next one will be -1-1 = -2, so if the Pair
+        int columnIndex; // This is plotted in X- axis way, when you extend the xaxis plotted dots in form of lines, then it will be shown as vertical lines).
+        // As you move to left subtract -1 from current node, for eg., let root be 0, moving root to left will be 0 - 1 = -1 so -1 will be the columnIndex, similarly if
+        // there's one more left node, as the current columnIndex is = -1 , the next one will be -1-1 = -2, so if the Pair
     // has to be represented in (row,col) , so to populate row we use horizontalIndex, move to left from root then add -1 to the next node to root, if moving towards right from
-    // the root add + 1 to the next node of the root, (The line 's may be shown vertically, but if you draw you will understand when you plot level order, it's assigning the level
-    // vertically (so thats Y axis which is levelIndex) and this is x axis.
-        int levelIndex; // This is Y -axis index , so this was needed coz at x-axis index you might find multiple nodes, i mean at same position there might be more than 1
+    // the root add + 1 to the next node of the root
+        int levelIndex; // This is Y -axis index (it means when you come down  in y axis from top to bottom, it is represented as level by level),
+        // so this was needed coz at x-axis index you might find multiple nodes, i mean at same position there might be more than 1
         // node, so we need to see from top which os visible first, so this ca be taken care by level order, so to set level index, at every level we step down (vertically)
-        // add +1 to the previous index, for eg -> 0+ 1 =1 for left as well as for right.
+        // so as it is said when you move left from any node it will be (col, row) will be shown if moved left (col -1, row+1) . And if moved right it will be (col + 1, row +1).
         TreeNode node;
 
-        public Pair(int horizontalIndex, int levelIndex, TreeNode node) {
-            this.horizontalIndex = horizontalIndex;
+        public Pair(int columnIndex, int levelIndex, TreeNode node) {
+            this.columnIndex = columnIndex;
             this.levelIndex = levelIndex;
             this.node = node;
         }
@@ -41,7 +42,7 @@ public class VerticalOrderTraversalBinaryTree {
 
     /** we will create a TreeMap to store the key as horizontal Index, and value as the array of data, matching those
      * horizontal index, for eg., in below example -1, 0,1, 2 are horizontal index , and equivalent to it we need to consider level index as well, below representation shows
-     * (horizontalIndex, levelindex)
+     * (columnIndex, levelindex)
      * (0,0 ) (-1, 1(levelIndex)), (1,1), (0,2), (2,2)
      *
      *   | -1  |0  | --> 1      how the data will look like --> -1,1 = [20], 0,0 = [10], 0,2 = [15] (as 0 passes vertically 0n 10 as well as on 15), 1,1 -->[30], 2,2 --> [40].
@@ -49,7 +50,7 @@ public class VerticalOrderTraversalBinaryTree {
      *   |    10  |   |         and 4th line is 2, how is this done--> 10 is a root giving the horizontal index as 0,
      *   |  / | \ |   | --> 2   now move towards left, as you move to left subtract current horizontal index with 1, so
      *   20   |  30   |         0 - 1 = -1, if there's other left derived from 20 then -1 - 1 = -2(one more vertical line would have been drawn),
-     *   |     / | \  |         if 20 has right, then -1 + 1 = 0, the rigt'h index val would be 0, now moving from 10 to right, so the horizntl
+     *   |     / | \  |         if 20 has right, then -1 + 1 = 0, the right'h index val would be 0, now moving from 10 to right, so the horizntl
      *   |   15  |   40         index at 30 will be 0 + 1 = 1, so moving right means adding +1 at every step, left means -1 at every step.
      *   |    |  |   |
      */
@@ -60,7 +61,7 @@ public class VerticalOrderTraversalBinaryTree {
 
         TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> tMap = new TreeMap<>();
 
-        //on top the 1st Integer with in Outer TreeMap i mean the Key is X-axis index ie., Horizontal index, and the next integer is Y axis Index, which is a key for an inner Treemap
+        //on top the 1st Integer with in Outer TreeMap i mean the Key is X-axis index ie., column index, and the next integer is Y axis Index, which is a key for an inner Treemap
         // here PriorityQueue is for sorting the value for eg, if left and right subtree has the data at x and y index being the same like (0,2) 0f left subtree = 8
         // and (0,2) of right subtree = 5, before framing this in list we need to sort it so 1st 5 will be considered then 8, this can be achieved by Priority queue, as it stores least element on top.
 
@@ -76,7 +77,7 @@ public class VerticalOrderTraversalBinaryTree {
             Pair currPair = q.poll();
 
             TreeNode currNode = currPair.node;
-            int x = currPair.horizontalIndex;
+            int x = currPair.columnIndex;
             int y = currPair.levelIndex;
 
             if (!tMap.containsKey(x)) {
@@ -102,9 +103,9 @@ public class VerticalOrderTraversalBinaryTree {
             for (Map.Entry<Integer, TreeMap<Integer, PriorityQueue<Integer>>> outerMapItr : tMap.entrySet()) {
                 TreeMap<Integer, PriorityQueue<Integer>> outerMapValue = outerMapItr.getValue();
 
-                resList.add(new ArrayList<>()); // adding One Empty list at every iteration
+                resList.add(new ArrayList<>()); // adding One Empty list at every iteration before every individual level, so that it collects all the data in that particular level
 
-                for (Map.Entry<Integer, PriorityQueue<Integer>> innerMapItr : outerMapValue.entrySet()) {
+                for (Map.Entry<Integer, PriorityQueue<Integer>> innerMapItr : outerMapValue.entrySet()) { // this is for level iteration
                     PriorityQueue<Integer> priorityQNodeVal = innerMapItr.getValue();
 
                     while (!priorityQNodeVal.isEmpty()) {

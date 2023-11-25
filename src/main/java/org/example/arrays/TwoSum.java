@@ -8,6 +8,13 @@ public class TwoSum {
         int target = 9;
         System.out.println(Arrays.toString(getTheTwoSumData(nums, target)));
     }
+
+    // For Unsorted Array
+
+
+
+
+    // This is for Sorted array
     public static int[] getTheTwoSumData(int[] nums, int target) {
         int left = 1;
         int right = nums.length;

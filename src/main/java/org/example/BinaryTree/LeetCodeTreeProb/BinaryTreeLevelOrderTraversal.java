@@ -79,7 +79,7 @@ public class BinaryTreeLevelOrderTraversal {
 
         while (!q.isEmpty()) { // so whenever controller comes here , it indicates we start to determine elements in new level
 
-            List<Integer> everyLevelElement = new ArrayList<>();
+            //List<Integer> everyLevelElement = new ArrayList<>();
 
             resList.add(new ArrayList<>()); // here every index in resList is populated with empty list at first
 

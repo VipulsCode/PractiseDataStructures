@@ -33,7 +33,7 @@ public class ThreeSum {
 
     private static List<List<Integer>> getThe3SumData(int[] nums) {
 
-        Set<List<Integer>> set = new HashSet<>();
+        Set<List<Integer>> set = new HashSet<>(); // Set is used so that you do not considered Duplicate list
         Arrays.sort(nums);
         for (int i = 0; i < nums.length; i++) {
             int first = nums[i];
@@ -45,7 +45,7 @@ public class ThreeSum {
             //nums[j] + nums[k] = (-) nums[i] --> hence -ve
 
             while (left < right) {
-                // while loop coz coz we need all the triplets of held target,
+                // while loop coz  we need all the triplets of held target,
                 // and for loop coz after holding 1 target value, we came to know that we have
                 //found all the possible triplets , but we need to keep on searching for other
                 //possible triplets, so hold next ith indexed value as target. we iterated all the elements of array.
