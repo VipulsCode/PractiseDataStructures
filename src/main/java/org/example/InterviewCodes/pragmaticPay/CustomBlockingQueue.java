@@ -1,4 +1,4 @@
-package org.example.InterviewCodes;
+package org.example.InterviewCodes.pragmaticPay;
 
 import java.util.Queue;
 

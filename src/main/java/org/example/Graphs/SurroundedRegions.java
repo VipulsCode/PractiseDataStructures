@@ -13,8 +13,8 @@ import java.util.Set;
  * Input: board = [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
  * Output: [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
  * Explanation: Notice that an 'O' should not be flipped if:
- * - It is on the border, or
- * - It is adjacent to an 'O' that should not be flipped.
+ *  - It is on the border, or
+ *  - It is adjacent to an 'O' that should not be flipped.
  * The bottom 'O' is on the border, so it is not flipped.
  * The other three 'O' form a surrounded region, so they are flipped.
  */
@@ -34,8 +34,8 @@ public class SurroundedRegions {
 
         int[][] visited = new int[m][n];
 
-        // Trace out all the 4 edges of the matrix does any edge contain 'O'
-        // to do so first we trace out top row and bottom row of the matrix board, by this 2 edges will be covered
+        // Trace out all the 4 edges of the matrix, to check  does any edge contain 'O'
+        // to do so first we trace top row and bottom row of the matrix board, by this 2 edges will be covered
 
         for (int j = 0; j < n; j++) { // now why choose j , coz 1st row i is always constant i.e., 00, 01 ,02, 03....
             // Tracing 1st row
@@ -69,9 +69,9 @@ public class SurroundedRegions {
         }
 
         // By Now the edges with 'O' are found and also the adjacent 'O' would have also been found through dfs and, the visited matrix
-        // would have been marked by 1, at the same index of edged 'O' and it's adjacent, but in visited matrix.
+        // would have been marked by 1, at the same index of edged 'O' and it's adjacent.
 
-        // Now it's time to fip left over 'O' which werent marked visited to flip to 'X'
+        // Now it's time to fip left over 'O' which weren't marked visited to flip to 'X'
 
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {

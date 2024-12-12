@@ -37,6 +37,7 @@ public class SwappingNodesInLinkedList {
         return head; // all the action does take place in head it self, just replacement of value was done , need to return the whole listNode after replacing values
     }
 
+
     public ListNode getTheNodeAddressForKIndex(ListNode head, int k) {
         ListNode tempNode = head;
         int count = 1;

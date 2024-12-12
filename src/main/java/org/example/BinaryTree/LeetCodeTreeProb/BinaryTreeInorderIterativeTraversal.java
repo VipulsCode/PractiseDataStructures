@@ -59,10 +59,11 @@ public class BinaryTreeInorderIterativeTraversal {
         TreeNode currNode = root; // assigning root as currNode initially
 
         while(currNode != null || !st.isEmpty()) {
-            // Using or condition coz ,once left subtree reaches it's last node
-            // of the tree both the left and right value becomes null, and it's assigned to currNode, but the stack won't be empty yet.
+            // Using or condition coz ,once left subtree reaches it's last node of the tree both the left and right value becomes null,
+            // and it's assigned to currNode, but the stack won't be empty yet. AND also at the very beginning the Stack is empty,
+            // so if i use and operator the while loop will not be executed at all.
 
-            while(currNode != null) { // again checking this coz, we need to navigate till the last left of the subtree, and push to the stack
+            while(currNode != null) { // again checking this coz, we need traverse the entire left of the subtree (Think of DFS), and push to the stack
                                         // and assign the same to current node
                 st.push(currNode);
                 currNode = currNode.left;

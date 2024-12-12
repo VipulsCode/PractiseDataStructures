@@ -17,9 +17,9 @@ public class LinkedListReversalToSaidValue {
             count++;
         }
 
-        if (curr != null) {// now i am checking if there is left node after reversing , then we knew that the 1st node in question was our head, and now that has been reversed to
-            // to the asked k , so it would be at the k - 1 th index after reversing, so now if we say head.next , that means 1st node in the question now k-1th node after reversing the
-            // next value of it will be curr--> which has left over's after reversing ois done
+        if (curr != null) {// now i am checking if there is left node after reversing , then we knew that the 1st node in question was our head, and now that has been
+ // reversed to the asked k , so the head node will be be the last node of prev, so now if we say head.next , that means 1st node in the question now k-1th node after
+// reversing the next value of it will be curr--> which has left over's after reversing ois done
 
             head.next = curr; // so prev next will be holding head.next value, why , as prev last index node is 1st node of head in the question
         }

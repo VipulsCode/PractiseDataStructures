@@ -16,8 +16,8 @@ public class NumberOfIslands {
     }
 
     public static int numIslands(char[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
+        int m = grid.length; // row length
+        int n = grid[0].length; // col length
 
         int[][] isVisited = new int[m][n]; // if the Aij = 0 , the index is not visited yet, if Aij = 1 it's visited already
 
@@ -55,7 +55,7 @@ public class NumberOfIslands {
             // left and right side as well(horizontally) to check whether the adjacent values is land or water, to make it as a island
             // so when you move up = (row +1 , col),  down = (row -1, col), left = (row, col-1), right = (row, col + 1), so it can be seen that
             // the movement is from -1 to +1 (generally), so we take a simple way to make sure the point where we are standing moves to all the
-            // directions and checks is adjacent is 1 or 0. we take deltaRow ranging from -1 to 1 , and simillarly deltaColumn ranging from -1 to 1.
+            // directions and checks is adjacent is 1 or 0. we take deltaRow ranging from -1 to 1 , and similarly deltaColumn ranging from -1 to 1.
 
             for (int rowDelta = -1; rowDelta <= 1; rowDelta++) {
                 for (int colDelta = -1; colDelta <= 1; colDelta++) {

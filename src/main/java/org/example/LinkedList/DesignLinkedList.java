@@ -3,118 +3,126 @@ package org.example.LinkedList;
 /** 707. Design Linked List*/
 
 public class DesignLinkedList {
-    private Node head;
-    private Node tail;
-    private class Node {
-        private int value;
-        private Node next;
+    class Node {
+        int val;
+        Node next;
 
-        private Node (int value) {
-            this.value = value;
+        Node(int val) {
+            this.val = val;
         }
-        private Node (int value, Node next) {
-            this.value = value;
+
+        Node (int val, Node next) {
+            this.val = val;
             this.next = next;
         }
     }
+
+    private Node head;
+    private Node tail;
     private int size;
+
     public DesignLinkedList() {
-        this.size = 0;
+        size = 0;
     }
 
     public int get(int index) {
-        if (index < 0 || index > size - 1) {
+        if (head == null || tail == null) {
             return -1;
         }
-        Node node = head;
-        int value = -1;
-        for (int i = 0; i <= index; i++) {
-            value = node.value;
-            node = node.next;
+        if (index == 0) {
+            return head.val;
         }
-        return value;
+        if (index == size - 1) {
+            return tail.val;
+        }
+        Node node = head;
+
+        for (int i = 0; i < index; i++) {
+            if (node != null)
+                node = node.next;
+        }
+        if (node != null) {
+            return node.val;
+        }
+        return -1;
+
     }
 
     public void addAtHead(int val) {
-        Node newNode = new Node(val);
+        Node node = new Node(val);
         if (head == null) {
-            head = newNode;
-            tail = newNode;
-            size++;
-            return;
+            head = node;
+            node.next = null;
+            tail = node;
+        } else {
+            node.next = head;
+            head = node;
         }
-        newNode.next = head;
-        head = newNode;
-        size++;
+        size ++;
     }
 
     public void addAtTail(int val) {
-        Node newNode = new Node(val);
         if (tail == null) {
             addAtHead(val);
-            return;
+        } else {
+            Node tailNode = new Node(val);
+            tail.next = tailNode;
+            tailNode.next = null;
+            tail = tailNode;
+            size++;
         }
-        tail.next = newNode;
-        newNode.next = null;
-        tail = newNode;
-        size++;
     }
 
     public void addAtIndex(int index, int val) {
-        Node newNode = new Node(val);
-        if (index == size) {
-            addAtTail(val);
+        if (index > size || index < 0) {
             return;
         }
         if (index == 0) {
             addAtHead(val);
-            return;
+        } else if (index == size) {
+            addAtTail(val);
+        } else {
+            Node newNode = new Node(val);
+            Node nd = getPrevNodeoFIndex(index);
+            newNode.next = nd.next;
+            nd.next = newNode;
+            size++;
         }
-        if (index > size || index < 0) {
-            return;
-        }
-        Node previousNode = find(index);
-        newNode.next = previousNode.next;
-        previousNode.next = newNode;
-        size++;
-    }
-    public Node find(int index) {
-        Node temp = head;
-        for (int i = 0; i < index-1; i++) {
-            temp = temp.next;
-        }
-        return temp;
+
     }
 
     public void deleteAtIndex(int index) {
-        if (index < 0 || index > size-1) {
+        if (index > size - 1 || index < 0) {
             return;
         }
-        Node node = head;
-        if (index == size-1) {
-            node = find(index);
-            node.next = null;
-            tail = node;
-            size--;
-            return;
-        }
+        Node node = getPrevNodeoFIndex(index);
         if (index == 0) {
-            head = node.next;
-            size--;
-            return;
-        }
-        node = find(index);
-        if(node.next != null) {
+            head = head.next;
+        } else if (index == size - 1) {
+            node .next = null;
+            tail = node;
+        } else {
             node.next = node.next.next;
         }
+        size--;
+    }
+
+    public Node getPrevNodeoFIndex(int index) {
+        Node node = head;
+        for (int i = 0; i < index - 1; i++) {
+            node = node.next;
+        }
+        return node;
     }
 
     public void display() {
         Node newNode = head;
         while (newNode != null) {
-            System.out.print(newNode.value + "-->");
+            System.out.print(newNode.val + "-->");
             newNode = newNode.next;
         }
         System.out.println("End");
     }
+
+
 }

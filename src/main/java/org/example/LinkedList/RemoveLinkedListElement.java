@@ -40,8 +40,10 @@ public class RemoveLinkedListElement {
 
 
         ListNode temp = head;
+
         ListNode head1 = new ListNode();
-        ListNode head2 = head1;
+        ListNode head2 = head1; // iterating ListNode
+
         while(temp != null) {
             if (temp.val == val) {
                 temp = temp.next;
